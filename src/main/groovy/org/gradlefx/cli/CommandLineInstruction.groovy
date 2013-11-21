@@ -116,6 +116,12 @@ abstract class CommandLineInstruction {
         addLibraries theme.files, theme, CompilerOption.THEME
     }
 
+    public addLinkReport() {
+        if (flexConvention.linkReport) {
+            add CompilerOption.LINK_REPORT, flexConvention.linkReport + '.xml'
+        }
+    }
+
     /**
      * Adds all the dependencies for the given configuration as compile arguments
      *

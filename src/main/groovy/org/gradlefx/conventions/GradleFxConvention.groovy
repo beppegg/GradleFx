@@ -102,6 +102,9 @@ class GradleFxConvention {
     // To use debugRLS
     def useDebugRSLSwfs = false
 
+    // Set to a filename to instruct GradleFx to generate a link report.
+    String linkReport
+
     // HTML wrapper options
     HtmlWrapperConvention htmlWrapper
 	

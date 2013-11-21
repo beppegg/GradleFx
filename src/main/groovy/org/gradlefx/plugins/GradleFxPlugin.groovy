@@ -96,12 +96,22 @@ class GradleFxPlugin extends AbstractGradleFxPlugin {
     private void addArtifactsToDefaultConfiguration(Project project) {
         String type = flexConvention.type.toString()
         File artifactFile = project.file project.buildDir.name + "/" + flexConvention.output + "." + type
-        PublishArtifact artifact = new DefaultPublishArtifact(project.name, type, type, null, new Date(), artifactFile)
+        PublishArtifact mainArtifact = new DefaultPublishArtifact(project.name, type, type, null, new Date(), artifactFile)
+
+        PublishArtifact linkReportArtifact
+        if (flexConvention.linkReport) {
+            File linkReportFile = project.file project.buildDir.name + "/" + flexConvention.linkReport + ".xml"
+            linkReportArtifact = new DefaultPublishArtifact("${project.name}-linkReport",
+                    "xml", "xml",
+                    "linkReport",
+                    new Date(),
+                    linkReportFile)
+        }
 
         project.artifacts { ArtifactHandler artifactHandler ->
             Configurations.ARTIFACT_CONFIGURATIONS.each { Configurations configuration ->
                 String configName = configuration.configName()
-                artifactHandler."$configName" artifact
+                artifactHandler."$configName" mainArtifact, linkReportArtifact
             }
         }
     }

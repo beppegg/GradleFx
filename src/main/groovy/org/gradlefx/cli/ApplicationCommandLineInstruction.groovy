@@ -45,6 +45,7 @@ class ApplicationCommandLineInstruction extends CommandLineInstruction {
         addRSLs()
         addFrameworkRsls()
 
+        addLinkReport()
         addAdditionalCompilerOptions()
         addOutput()
         addMainClass()
@@ -65,7 +66,7 @@ class ApplicationCommandLineInstruction extends CommandLineInstruction {
     public void addOutput() {
         addOutput "${project.buildDir.name}/${flexConvention.output}.swf"
     }
-    
+
     public void addMainClass() {
         File mainClassFile = new File(flexConvention.mainClassPath)
         if (!mainClassFile.isAbsolute()) {
